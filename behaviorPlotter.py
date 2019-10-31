@@ -4,7 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 from PIL import Image
-#from sklearn.preprocessing import normalize
 
 
 ##
@@ -12,26 +11,19 @@ from PIL import Image
 #and displaying them per individual per behavior in a gif/video
 #ideally should be 10 x 7 x 3 for the 10 categories of behavior and the seven individuals
 #
-#directories for clips:
-#cichlid Video:McGrath/Apps/CichlidPiData/CV10_3/VideoAnalysis/0004_vid/ClusterData/AllClips/548_1169_2351_164_170.mp4
-#cichlid Video:McGrath/Apps/CichlidPiData/CV10_3/VideoAnalysis/0004_vid/ClusterData/AllClips.tar
-#
 #go to each trial's AllClusterData.csv
 #find top three test predictions for resnet18 for each behavior for each trial
 #download corresponding directory from dropbox if not already downloaded
 #
 #find clip in directory and convert it to frames, keeping track of minimum frames
-#trim all clips to minimum frames (UNNECESSARY)
+#trim all clips to minimum frames (UNNECESSARY, ALL HAVE 120)
 #
-#LEFT TO DO:
 #create num_frame number of identical matplotlib 10 x 21 plots with corresponding frames shown and labels included
+#order behaviors/trials
 #clean up gif frames
 #convert into gif/video
 ##
 
-dbx = dropbox.Dropbox('QUA3akmZN2AAAAAAAAAAH2_txIBhH8UfokxSLNH22rYMArzw1enETshHYlZ5Ohrm')
-
-dbx_dir = "/BioSci-McGrath/Apps/CichlidPiData/__MachineLearning/Clips"
 
 cur_dir = os.getcwd()
 
@@ -85,7 +77,7 @@ for trial in os.listdir(data_dir):
                         print(id, " not found.")
 '''
 
-''' extracting frames (NORM VERSION)
+''' extracting frames (VERSION NORM)
 for trial in os.listdir(data_dir):
     #print(trial)
     for action in actions:
@@ -110,7 +102,7 @@ for trial in os.listdir(data_dir):
                 print(success)
                 #pdb.set_trace()
                 if(success):
-                    image = np.asarray(Image.fromarray(image).convert('L'))
+                    image = np.asarray(Image.fromarray(image).convert('L')) #normalize
                 #pdb.set_trace()
                 count = 0
                 success = True
@@ -148,8 +140,8 @@ actions_reverse = actions_ordered.copy()
 actions_reverse.reverse()
 #print(actions_reverse)
 trials_ordered = ["CV10_3", "TI2_4", "TI3_3", "MC6_5", "MC16_2", "MCxCVF1_12a_1", "MCxCVF1_12b_1"]
-#build
-'''
+
+''' #build plots
 for f in range(num_frame): #frames
     index = 1
 
@@ -184,8 +176,9 @@ for f in range(num_frame): #frames
     plt.savefig(os.path.join(cur_dir, "Plot_NormFrames", 'plot%d.png' % f))
     plt.close()
 '''
+#how to convert to gif (run on command line)
 #convert -delay 3 'plot%d.png[0-119]' output_norm.gif
-#move output_norm.gif
+#move output_norm.gif to outer directory and cd into it
 #gifsicle -b -O2 --colors 256 output_norm.gif
 
 
