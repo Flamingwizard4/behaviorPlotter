@@ -9,7 +9,7 @@ from PIL import Image
 ##
 #code for finding top 3 accuracy/confidence predictions of 3D CNN
 #and displaying them per individual per behavior in a gif/video
-#ideally should be 10 x 7 x 3 for the 10 categories of behavior and the seven individuals
+#ideally should be 10 x 7 x 3 for the 10 categories of behavior, the seven individuals, and three examples of each behavior
 #
 #go to each trial's AllClusterData.csv
 #find top three test predictions for resnet18 for each behavior for each trial
